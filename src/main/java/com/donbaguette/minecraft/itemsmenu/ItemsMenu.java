@@ -1,8 +1,15 @@
 package com.donbaguette.minecraft.itemsmenu;
 
+import com.donbaguette.minecraft.itemsmenu.managers.ConfigManager;
+import com.donbaguette.minecraft.itemsmenu.managers.InventoryConfigManager;
+import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
 import com.donbaguette.minecraft.itemsmenu.types.ConfigType;
+import com.donbaguette.minecraft.itemsmenu.types.InventoryType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public final class ItemsMenu extends JavaPlugin {
@@ -11,30 +18,23 @@ public final class ItemsMenu extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         ConfigType configType = new ConfigType();
-        this.saveDefaultConfig();
-        FileConfiguration config = this.getConfig();
-        System.out.println(config.get("test1.test2.name"));
-        config.addDefault("TestingOne", "Yes");
-        config.addDefault("TestingTwo", "No");
-        config.addDefault("Yes", true);
-        config.addDefault("test1.False", false);
-        config.options().copyDefaults(true);
-        saveConfig();
-        /*
+
         configType.setConfigPath(this.getDataFolder().getPath());
-        configType.setConfigName("TestingXD.yml");
+        configType.setConfigName("config.yml");
         ConfigManager configManager = new ConfigManager(this, configType);
+        configManager.saveDefaultConfig();
+        FileConfiguration newConfig = configManager.getConfig();
+        //newConfig.addDefault("Key", "Value");
+        //configManager.saveConfig();
+
+
+        InventoryType inventoryType = new InventoryType("My Inventory", 16);
+        InventoryManager inventoryManager = new InventoryManager("inventory1.yml", new File(getDataFolder(), "Inventories"));
         try {
-             configManager.saveDefaultConfig();
-            FileConfiguration newConfig = configManager.getConfig();
-            newConfig.addDefault("Key", "Value");
-            configManager.saveConfig();
-
-
+            inventoryManager.createInventoryConfig(inventoryType);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        */
 
     }
 
