@@ -1,0 +1,7 @@
+name: ItemsMenu
+version: '${project.version}'
+main: com.donbaguette.minecraft.itemsmenu.ItemsMenu
+api-version: 1.19
+authors: [ DonBaguette ]
+description: Ideal plugin for creating interactive menus
+website: https://donbaguette.com
