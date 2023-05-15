@@ -1,12 +1,9 @@
 package com.donbaguette.minecraft.itemsmenu;
 
-import com.donbaguette.minecraft.itemsmenu.managers.ConfigManager;
 import com.donbaguette.minecraft.itemsmenu.types.ConfigType;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 public final class ItemsMenu extends JavaPlugin {
 
