@@ -34,7 +34,7 @@ public class ConfigManager {
         this.config.setDefaults(defaultConfig);
     }
 
-    public FileConfiguration getConfig() throws UnsupportedEncodingException {
+    public FileConfiguration getConfig() {
         if(this.config == null){
             reloadConfig();
         }
@@ -45,16 +45,14 @@ public class ConfigManager {
         if(this.config == null || this.configFile == null) {
             return;
         }
-        System.out.println("se guardo XD");
         getConfig().save(this.configFile);
     }
 
-    public void saveDefaultConfig() throws IOException {
+    public void saveDefaultConfig() {
         if(this.configFile == null) {
             this.configFile = new File(this.main.getDataFolder(), this.configType.getConfigName());
         }
         if(!this.configFile.exists()){
-            System.out.println("Saving resource: " + this.configFile.getName());
             this.main.saveResource(this.configFile.getName(), false);
         }
     }
