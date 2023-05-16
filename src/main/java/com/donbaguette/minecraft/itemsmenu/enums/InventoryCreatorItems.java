@@ -9,7 +9,8 @@ import java.util.Objects;
 
 public enum InventoryCreatorItems {
     
-    SIGN(new ItemStack(Objects.requireNonNull(XMaterial.OAK_SIGN.parseMaterial())));
+    SIGN(new ItemStack(Objects.requireNonNull(XMaterial.OAK_SIGN.parseMaterial()))),
+    WOOL(new ItemStack(Objects.requireNonNull(XMaterial.GREEN_WOOL.parseMaterial())));
 
     public final ItemStack itemStack;
 

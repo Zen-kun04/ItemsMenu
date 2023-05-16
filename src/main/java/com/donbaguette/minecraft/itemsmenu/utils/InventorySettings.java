@@ -2,11 +2,9 @@ package com.donbaguette.minecraft.itemsmenu.utils;
 
 
 import com.donbaguette.minecraft.itemsmenu.enums.InventoryCreatorItems;
-import com.donbaguette.minecraft.itemsmenu.managers.InventoryConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -55,6 +53,14 @@ public class InventorySettings {
         signMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&5&lSomething weird"));
         sign.setItemMeta(signMeta);
         inventory.setItem(3, sign);
+
+        ItemStack greenWool = InventoryCreatorItems.WOOL.itemStack;
+        ItemMeta greenWoolMeta = greenWool.getItemMeta();
+        assert greenWoolMeta != null;
+        greenWoolMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&aAdd custom items"));
+        greenWool.setItemMeta(greenWoolMeta);
+        inventory.setItem(5, greenWool);
+
         return inventory;
     }
 

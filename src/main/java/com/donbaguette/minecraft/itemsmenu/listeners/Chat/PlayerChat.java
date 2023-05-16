@@ -1,6 +1,5 @@
 package com.donbaguette.minecraft.itemsmenu.listeners.Chat;
 
-import com.donbaguette.minecraft.itemsmenu.managers.InventoryConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
 import com.donbaguette.minecraft.itemsmenu.utils.InventorySettings;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -26,8 +25,6 @@ public class PlayerChat implements Listener {
         String message = event.getMessage();
 
         ArrayList<String> waiting = inventorySettings.getWaitingForChat();
-        System.out.println(waiting);
-        System.out.println(player.getName());
         if(waiting.contains(player.getName())){
 
             if(message.replace("&", "").length() > 45){
@@ -36,7 +33,6 @@ public class PlayerChat implements Listener {
                 inventorySettings.removeWaitingForChat(player.getName());
                 // code here
                 HashMap<Player, InventoryManager> inventoryManagerHashMap = inventorySettings.getPlayerInventoryCreating();
-                System.out.println(inventoryManagerHashMap);
                 InventoryManager inventoryManager = inventoryManagerHashMap.get(player);
                 FileConfiguration config = inventoryManager.getInventoryConfig();
                 config.set("title", message);

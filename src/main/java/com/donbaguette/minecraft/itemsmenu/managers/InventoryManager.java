@@ -1,12 +1,14 @@
 package com.donbaguette.minecraft.itemsmenu.managers;
 
 import com.donbaguette.minecraft.itemsmenu.types.InventoryType;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class InventoryManager extends InventoryConfigManager {
 
@@ -36,5 +38,10 @@ public class InventoryManager extends InventoryConfigManager {
         inventoryConfig.addDefault("title", inventoryType.getInventoryTitle());
         inventoryConfig.addDefault("slots", inventoryType.getInventorySlots());
         saveInventoryConfig();
+    }
+
+    public Inventory getInventoryFromConfig() throws IOException {
+        FileConfiguration conf = getInventoryConfig();
+        return Bukkit.createInventory(null, conf.getInt("slots"), ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(conf.getString("title"))));
     }
 }

@@ -1,11 +1,14 @@
 package com.donbaguette.minecraft.itemsmenu;
 
+import com.donbaguette.minecraft.itemsmenu.managers.ConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
+import com.donbaguette.minecraft.itemsmenu.types.ConfigType;
 import com.donbaguette.minecraft.itemsmenu.types.InventoryType;
 import com.donbaguette.minecraft.itemsmenu.utils.InventorySettings;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,6 +41,15 @@ public class Commands implements CommandExecutor {
 
                             try {
                                 inventoryManager.createInventoryConfig(inventoryType);
+                                ConfigType configType = new ConfigType();
+
+                                configType.setConfigPath(this.main.getDataFolder().getPath());
+                                configType.setConfigName("config.yml");
+                                ConfigManager configManager = new ConfigManager(this.main, configType);
+                                FileConfiguration config = configManager.getConfig();
+                                config.set("commands." + args[2], "Inventories/" + args[2] + ".yml");
+                                configManager.saveConfig();
+                                configManager.reloadConfig();
                                 inventorySettings.addPlayerInventoryCreating(player, inventoryManager);
                                 player.openInventory(inventorySettings.createInventory());
                             } catch (IOException e) {
