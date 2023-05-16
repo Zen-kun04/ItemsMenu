@@ -1,11 +1,13 @@
 package com.donbaguette.minecraft.itemsmenu;
 
+import com.donbaguette.minecraft.itemsmenu.listeners.Chat.PlayerChat;
 import com.donbaguette.minecraft.itemsmenu.listeners.Inventory.InventoryClick;
 import com.donbaguette.minecraft.itemsmenu.managers.ConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
 import com.donbaguette.minecraft.itemsmenu.types.ConfigType;
 import com.donbaguette.minecraft.itemsmenu.types.InventoryType;
+import com.donbaguette.minecraft.itemsmenu.utils.InventorySettings;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -15,9 +17,12 @@ import java.util.Objects;
 
 
 public final class ItemsMenu extends JavaPlugin {
+
+    private InventorySettings inventorySettings;
     @Override
     public void onEnable() {
         // Plugin startup logic
+        inventorySettings = new InventorySettings();
         loadEvents();
         loadCommands();
         ConfigType configType = new ConfigType();
@@ -41,10 +46,11 @@ public final class ItemsMenu extends JavaPlugin {
         System.out.println("Testing 2");
     }
     public void loadCommands() {
-        Objects.requireNonNull(this.getCommand("itemsmenu")).setExecutor(new Commands(this));
+        Objects.requireNonNull(this.getCommand("itemsmenu")).setExecutor(new Commands(this, inventorySettings));
     }
 
     public void loadEvents() {
-        getServer().getPluginManager().registerEvents(new InventoryClick(), this);
+        getServer().getPluginManager().registerEvents(new InventoryClick(inventorySettings), this);
+        getServer().getPluginManager().registerEvents(new PlayerChat(inventorySettings), this);
     }
 }

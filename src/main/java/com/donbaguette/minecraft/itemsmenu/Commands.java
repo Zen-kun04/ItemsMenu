@@ -15,9 +15,11 @@ import java.io.IOException;
 public class Commands implements CommandExecutor {
 
     private final ItemsMenu main;
+    private final InventorySettings inventorySettings;
 
-    public Commands(ItemsMenu main) {
+    public Commands(ItemsMenu main, InventorySettings inventorySettings) {
         this.main = main;
+        this.inventorySettings = inventorySettings;
     }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -33,10 +35,11 @@ public class Commands implements CommandExecutor {
                         if(args.length > 1){
                             InventoryType inventoryType = new InventoryType("My Inventory", 16);
                             InventoryManager inventoryManager = new InventoryManager(args[1] + ".yml", new File(this.main.getDataFolder(), "Inventories"));
+
                             try {
                                 inventoryManager.createInventoryConfig(inventoryType);
-                                InventorySettings inventory = new InventorySettings();
-                                player.openInventory(inventory.createInventory());
+                                inventorySettings.addPlayerInventoryCreating(player, inventoryManager);
+                                player.openInventory(inventorySettings.createInventory());
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
