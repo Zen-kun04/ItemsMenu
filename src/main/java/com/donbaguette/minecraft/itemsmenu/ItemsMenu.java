@@ -1,5 +1,6 @@
 package com.donbaguette.minecraft.itemsmenu;
 
+import com.donbaguette.minecraft.itemsmenu.listeners.Inventory.InventoryClick;
 import com.donbaguette.minecraft.itemsmenu.managers.ConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryConfigManager;
 import com.donbaguette.minecraft.itemsmenu.managers.InventoryManager;
@@ -17,6 +18,7 @@ public final class ItemsMenu extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        loadEvents();
         loadCommands();
         ConfigType configType = new ConfigType();
 
@@ -40,5 +42,9 @@ public final class ItemsMenu extends JavaPlugin {
     }
     public void loadCommands() {
         Objects.requireNonNull(this.getCommand("itemsmenu")).setExecutor(new Commands(this));
+    }
+
+    public void loadEvents() {
+        getServer().getPluginManager().registerEvents(new InventoryClick(), this);
     }
 }
