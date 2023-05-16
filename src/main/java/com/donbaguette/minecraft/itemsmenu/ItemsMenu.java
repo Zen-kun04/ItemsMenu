@@ -10,23 +10,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 
 public final class ItemsMenu extends JavaPlugin {
-
     @Override
     public void onEnable() {
         // Plugin startup logic
+        loadCommands();
         ConfigType configType = new ConfigType();
 
         configType.setConfigPath(this.getDataFolder().getPath());
         configType.setConfigName("config.yml");
         ConfigManager configManager = new ConfigManager(this, configType);
         configManager.saveDefaultConfig();
-        FileConfiguration newConfig = configManager.getConfig();
-        //newConfig.addDefault("Key", "Value");
-        //configManager.saveConfig();
-
 
         InventoryType inventoryType = new InventoryType("My Inventory", 16);
         InventoryManager inventoryManager = new InventoryManager("inventory1.yml", new File(getDataFolder(), "Inventories"));
@@ -35,12 +32,13 @@ public final class ItemsMenu extends JavaPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
-
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         System.out.println("Testing 2");
+    }
+    public void loadCommands() {
+        Objects.requireNonNull(this.getCommand("itemsmenu")).setExecutor(new Commands(this));
     }
 }

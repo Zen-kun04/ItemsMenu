@@ -5,3 +5,9 @@ api-version: 1.19
 authors: [ DonBaguette ]
 description: Ideal plugin for creating interactive menus
 website: https://donbaguette.com
+commands:
+  itemsmenu:
+    aliases:
+      - "im"
+      - "itemmenu"
+    description: "Main command vor ItemsMenu."
